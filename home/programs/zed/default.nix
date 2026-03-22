@@ -59,7 +59,6 @@
       };
 
       agent = {
-        always_allow_tool_actions = false;
         favorite_models = [
           {
             provider = "copilot_chat";
