@@ -106,7 +106,19 @@
           };
         };
       };
-      lsp = { };
+      lsp = {
+        nil = {
+          settings = {
+            nil = {
+              nix = {
+                flake = {
+                  autoArchive = true;
+                };
+              };
+            };
+          };
+        };
+      };
     };
     userKeymaps = [
       {
