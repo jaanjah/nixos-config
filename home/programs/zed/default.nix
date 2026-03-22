@@ -15,6 +15,9 @@
       "sql"
       "toml"
 
+      # Agents
+      "github-copilot-cli"
+
       # Themes
       "catppuccin"
 
@@ -38,7 +41,7 @@
         always_allow_tool_actions = true;
         default_model = {
           provider = "copilot_chat";
-          model = "gpt-5.3-codex";
+          model = "claude-opus-4-6";
         };
       };
       base_keymap = "JetBrains";
@@ -57,6 +60,7 @@
         package-version-server = true;
         sql = true;
         git-firefly = true;
+        github-copilot-cli = true;
         dockerfile = true;
         toml = true;
       };
