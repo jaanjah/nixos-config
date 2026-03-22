@@ -14,6 +14,7 @@
       "nix"
       "sql"
       "toml"
+      "csharp"
 
       # Agents
       "github-copilot-cli"
@@ -102,6 +103,7 @@
         github-copilot-cli = true;
         dockerfile = true;
         toml = true;
+        csharp = true;
       };
       autosave = "on_focus_change";
       buffer_font_family = "CaskaydiaMono Nerd Font Mono";
