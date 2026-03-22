@@ -17,6 +17,9 @@
 
       # Package.json language server
       package-version-server
+
+      # For CSharp
+      dotnet-sdk_10
     ];
   };
 }
