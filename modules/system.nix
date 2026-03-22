@@ -44,10 +44,22 @@
     optimise = {
       automatic = lib.mkDefault true;
     };
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings = {
+      cores = 0;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      max-jobs = lib.mkDefault "auto";
+      substituters = [
+        "https://cache.nixos.org/"
+        "https://nix-community.cachix.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbKSe1v8fI8XnXjCQQ1rDjfTHk="
+        "nix-community.cachix.org-1:mB9FSh9qf2dde0FHtylsLTQLfmElBtIiJsHnfKHrBNY="
+      ];
+    };
   };
   nixpkgs.config = {
     allowUnfree = true;
