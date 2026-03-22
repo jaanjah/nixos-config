@@ -38,7 +38,8 @@
     ];
     userSettings = {
       agent = {
-        always_allow_tool_actions = true;
+        always_allow_tool_actions = false;
+        default_profile = "github_copilot";
         default_model = {
           provider = "copilot_chat";
           model = "claude-opus-4-6";
