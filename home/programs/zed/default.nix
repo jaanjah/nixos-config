@@ -37,14 +37,52 @@
       package-version-server
     ];
     userSettings = {
+      context_servers = {
+        "mcp-server-context7" = {
+          enabled = true;
+          remote = false;
+          settings = { };
+        };
+      };
+
+      agent_servers = {
+        "github-copilot-cli" = {
+          favorite_config_option_values = {
+            model = [
+              "claude-opus-4.6"
+              "gpt-5.2"
+            ];
+          };
+          type = "registry";
+        };
+      };
+
       agent = {
         always_allow_tool_actions = false;
+        favorite_models = [
+          {
+            provider = "copilot_chat";
+            model = "gpt-5.3-codex";
+            enable_thinking = false;
+          }
+          {
+            provider = "copilot_chat";
+            model = "claude-opus-4.6";
+            enable_thinking = true;
+          }
+          {
+            provider = "copilot_chat";
+            model = "gpt-4o";
+            enable_thinking = false;
+          }
+        ];
         default_profile = "github_copilot";
         default_model = {
           provider = "copilot_chat";
-          model = "claude-opus-4-6";
+          model = "gpt-5.3-codex";
         };
       };
+
       base_keymap = "JetBrains";
       edit_predictions = {
         provider = "copilot";
@@ -56,7 +94,7 @@
       auto_install_extensions = {
         nix = true;
         catppuccin = true;
-        catpuccin-icons = true;
+        catppuccin-icons = true;
         html = true;
         package-version-server = true;
         sql = true;
