@@ -38,5 +38,7 @@
     ../../virtualisation/containers/flaresolverr.nix
     # http://localhost:9696 / http://prowlarr:9696
     ../../virtualisation/containers/prowlarr.nix
+    # http://localhost:8282
+    ../../virtualisation/containers/wallos.nix
   ];
 }
