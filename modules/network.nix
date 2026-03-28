@@ -6,10 +6,17 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   services.tailscale.enable = true;
+  services.resolved = {
+    enable = true;
+    dnssec = "false";
+  };
   networking = {
     nftables.enable = true;
     # Enable networking
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      dns = "systemd-resolved";
+    };
     firewall = {
       enable = true;
       trustedInterfaces = [ "tailscale0" ];
