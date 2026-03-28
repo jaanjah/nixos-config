@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       confirm_os_window_close = 0;
-      paste_actions = "quote-urls-at-prompt,confirm-if-large";
+      paste_actions = "quote-urls-at-prompt";
       enable_audio_bell = false;
       font_family = "CaskaydiaMono NFM Regular";
       bold_font = "CaskaydiaMono NFM Bold";
@@ -12,7 +12,4 @@
     };
   };
 
-  xdg.configFile."kitty/ssh.conf".text = ''
-    paste_actions no-op
-  '';
 }
