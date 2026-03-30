@@ -113,6 +113,7 @@
       libgcc
 
       stremio-linux-shell
+      qbittorrent
 
       # Markdown language server
       marksman
