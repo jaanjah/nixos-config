@@ -8,7 +8,7 @@
   services.tailscale.enable = true;
   services.resolved = {
     enable = true;
-    dnssec = "false";
+    settings.Resolve.DNSSEC = "false";
   };
   networking = {
     nftables.enable = true;
