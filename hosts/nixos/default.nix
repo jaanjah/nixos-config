@@ -115,6 +115,8 @@
       stremio-linux-shell
       qbittorrent
 
+      bun
+
       # Markdown language server
       marksman
 
