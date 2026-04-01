@@ -94,6 +94,7 @@
       google-chrome
 
       claude-code
+      gh
 
       # Runescape
       (bolt-launcher.override {
