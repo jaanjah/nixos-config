@@ -85,7 +85,7 @@
       prismlauncher
 
       wireguard-tools
-      protonvpn-gui
+      proton-vpn
 
       # TIDAL
       tidal-hifi
@@ -106,9 +106,6 @@
         enableRS3 = true;
       })
       runelite
-
-      # For running FFXIV
-      xivlauncher
 
       # https://github.com/0xAX/asm
       gnumake

@@ -1,9 +1,8 @@
 { config, ... }:
 {
-  home.file = {
-    "wallos/db/.keep".text = "";
-    "wallos/logos/.keep".text = "";
-  };
+  home.activation.createWallosDirs = config.lib.dag.entryBefore [ "linkGeneration" ] ''
+    mkdir -p "$HOME/wallos/db" "$HOME/wallos/logos"
+  '';
   virtualisation.quadlet.containers.wallos = {
     autoStart = true;
 
