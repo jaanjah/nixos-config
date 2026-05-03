@@ -17,6 +17,7 @@
     #../../modules/printer.nix
     ../../modules/system.nix
     #../../modules/touchpad.nix
+    ../../modules/virtualisation.nix
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -30,9 +31,11 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      # needed for virtualisation
+      "libvirtd"
+      "kvm"
     ];
   };
-
   programs.ssh.startAgent = true;
   programs.steam.enable = true;
   programs.nix-ld = {
