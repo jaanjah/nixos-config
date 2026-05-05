@@ -3,6 +3,7 @@
   # Virtualisation
   virtualisation.libvirtd = {
     enable = true;
+    sshProxy = false;
     qemu = {
       runAsRoot = true;
       swtpm.enable = true; # TPM emulation (needed for Windows 11)
