@@ -1,41 +1,8 @@
-{
-  config,
-  pkgs,
-  username,
-  ...
-}:
-let
-  xclicker = pkgs.callPackage ../packages/xclicker.nix { };
-in
+{ username, ... }:
 {
   home = {
     inherit username;
     homeDirectory = "/home/${username}";
-    sessionPath = [
-      "${config.home.homeDirectory}/.npm-global/bin"
-    ];
-    sessionVariables = {
-      NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
-    };
-    # Read more about lowPrio: https://nixos.org/manual/nixpkgs/stable/#function-library-lib.meta.lowPrio
-    packages = with pkgs; [
-      nodejs_24
-      python315
-      (lib.meta.lowPrio python314)
-      uv
-      # Nix language server dependencies
-      nil
-      nixd
-
-      # Go packages
-      go
-      gopls
-
-      # Package.json language server
-      package-version-server
-
-      xclicker
-    ];
     stateVersion = "25.05";
   };
   programs.home-manager.enable = true;
