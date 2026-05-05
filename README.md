@@ -69,18 +69,25 @@ hosts/<hostname>/hardware-configuration.nix
 
 Keep secrets out of shared modules. Put host-specific secret wiring in `hosts/<hostname>` or use an encrypted secrets path when secrets are added to this repo.
 
-## pre-commit hooks
+## Git hooks
 
-Setup pre-commit hooks for this repo:
+Setup Git hooks for this repo:
 
 ```sh
 git config core.hooksPath .githooks
 ```
 
-Run the same checks manually:
+The pre-commit hook runs `nixfmt` and `deadnix`. The pre-push hook runs:
+
+```sh
+nix flake check --no-write-lock-file
+```
+
+Run the hooks manually:
 
 ```sh
 nix develop -c pre-commit run --all-files
+nix develop -c pre-commit run --hook-stage pre-push --all-files
 ```
 
 ## Troubleshooting

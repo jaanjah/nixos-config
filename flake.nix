@@ -104,6 +104,13 @@
                 "hardware-configuration\\.nix$"
               ];
             };
+            flake-check = {
+              enable = true;
+              name = "nix flake check";
+              entry = "nix flake check --no-write-lock-file";
+              pass_filenames = false;
+              stages = [ "pre-push" ];
+            };
           };
         };
       });

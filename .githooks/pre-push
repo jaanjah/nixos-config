@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+set -eu
+
+# Repository-managed pre-push hook.
+# Runs the configured pre-push checks via the flake dev shell.
+exec nix develop --command pre-commit run --hook-stage pre-push --all-files
