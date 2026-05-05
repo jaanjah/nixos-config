@@ -44,39 +44,47 @@
         "aarch64-darwin"
       ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      mkHost =
+        {
+          hostname,
+          system ? "x86_64-linux",
+          username ? "jaan",
+          modules ? [ ],
+        }:
+        let
+          specialArgs = {
+            inherit hostname username;
+            inherit inputs;
+          };
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit specialArgs system;
+          modules = modules ++ [
+            nix-index-database.nixosModules.nix-index
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = inputs // specialArgs;
+              home-manager.backupFileExtension = "bak";
+              home-manager.sharedModules = [
+                inputs.nixcord.homeModules.nixcord
+                plasma-manager.homeModules.plasma-manager
+              ];
+              home-manager.users.${username} = import ./users/${username}/home.nix;
+            }
+            quadlet-nix.nixosModules.quadlet
+          ];
+        };
     in
     {
       nixosConfigurations = {
-        nixos =
-          let
-            username = "jaan";
-            specialArgs = {
-              inherit username;
-              inherit inputs;
-            };
-            system = "x86_64-linux";
-          in
-          nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-            inherit system;
-            modules = [
-              ./hosts/nixos
-              nix-index-database.nixosModules.nix-index
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = inputs // specialArgs;
-                home-manager.backupFileExtension = "bak";
-                home-manager.sharedModules = [
-                  inputs.nixcord.homeModules.nixcord
-                  plasma-manager.homeModules.plasma-manager
-                ];
-                home-manager.users.${username} = import ./users/${username}/home.nix;
-              }
-              quadlet-nix.nixosModules.quadlet
-            ];
-          };
+        draakon = mkHost {
+          hostname = "draakon";
+          modules = [
+            ./hosts/draakon
+          ];
+        };
       };
 
       checks = forAllSystems (system: {

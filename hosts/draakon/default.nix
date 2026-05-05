@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ hostname, pkgs, ... }:
 {
   imports = [
     # Import modules
@@ -23,7 +23,7 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = hostname;
 
   users.users.jaan = {
     isNormalUser = true;

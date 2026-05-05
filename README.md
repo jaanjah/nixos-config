@@ -1,17 +1,43 @@
 # nixos-config
 
-This repo contains my NixOS config I use on my home machine.
+This repo contains my NixOS config.
 
 ## Usage
 
+Available NixOS hosts:
+
+- `draakon`: main computer
+
 ```sh
-# Symlink flake.nix and flake.lock
-sudo ln -s ~/nixos-config/flake.nix /etc/nixos/flake.nix
-sudo ln -s ~/nixos-config/flake.lock /etc/nixos/flake.lock
-# Rebuild system
-sudo nixos-rebuild switch
+# Rebuild draakon from this checkout
+sudo nixos-rebuild switch --flake ~/nixos-config#draakon
 # Update flake.lock
-sudo nix flake update
+nix flake update
+```
+
+## New machine setup
+
+Clone this repo, create a host directory, add the generated hardware config, then run the first rebuild:
+
+```sh
+git clone git@github.com:JaanJah/nixos-config.git ~/nixos-config
+cd ~/nixos-config
+
+mkdir -p hosts/<hostname>
+sudo nixos-generate-config --show-hardware-config > hosts/<hostname>/hardware-configuration.nix
+$EDITOR hosts/<hostname>/default.nix
+
+sudo nixos-rebuild switch --flake ~/nixos-config#<hostname>
+```
+
+Add the new host to `nixosConfigurations` in `flake.nix` with `mkHost`. Keep host-specific hardware in `hosts/<hostname>/hardware-configuration.nix`; keep host-specific secrets out of shared modules and put them under the matching host directory or an encrypted secrets path.
+
+Leave `system.stateVersion` and `home.stateVersion` at the release version used for the first install of that machine or user profile.
+
+## Validation
+
+```sh
+nix flake check --no-write-lock-file
 ```
 
 ## pre-commit hooks
@@ -26,8 +52,6 @@ TODO:
 
 - Add docs for troubleshooting
 - Add separate legacy boot mode and UEFI boot mode config
-- Add commands how to properly clone and setup on new machine
-- Add docs on what are the extra commands needed to run to setup new machine
 
 Personal notes:
 
