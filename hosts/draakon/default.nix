@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ hostname, pkgs, ... }:
+{ hostname, ... }:
 {
   imports = [
     # Import modules
@@ -18,6 +18,14 @@
     ../../modules/system.nix
     #../../modules/touchpad.nix
     ../../modules/virtualisation.nix
+
+    # Package role profiles
+    ../../modules/packages/core.nix
+    ../../modules/packages/desktop.nix
+    ../../modules/packages/dev.nix
+    ../../modules/packages/gaming.nix
+    ../../modules/packages/media.nix
+    ../../modules/packages/vpn.nix
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -37,101 +45,6 @@
     ];
   };
   programs.ssh.startAgent = true;
-  programs.steam.enable = true;
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      # Needed for RS3
-      gtk2
-      libSM
-      libICE
-      libX11
-      libXxf86vm
-      glib
-      pango
-      gdk-pixbuf
-      cairo
-      libcap
-      # Permitted explicitly in system.nix
-      openssl_1_1
-      sdl2-compat
-      mesa
-      libglvnd
-    ];
-  };
-
-  environment = {
-    localBinInPath = true;
-    systemPackages = with pkgs; [
-      bc
-      bitwarden-desktop
-      nixfmt
-      ncdu
-      kitty
-      openvpn
-      spotify
-      tree
-      unzip
-      dig
-      git-lfs
-
-      qdigidoc
-
-      calibre
-
-      # For running OSRS
-      jdk11
-
-      rocketchat-desktop
-
-      # Minecraft launcher
-      prismlauncher
-
-      wireguard-tools
-      proton-vpn
-
-      # TIDAL
-      tidal-hifi
-
-      jellyfin-desktop
-      google-chrome
-
-      claude-code
-      gh
-
-      sops
-      age
-
-      # Runescape
-      (bolt-launcher.override {
-        # Launch options: /usr/bin/env SDL_VIDEODRIVER=x11 %command%
-        # @link https://github.com/Adamcake/Bolt/issues/147#issue-3206473355
-        enableRS3 = true;
-      })
-      runelite
-
-      # https://github.com/0xAX/asm
-      gnumake
-      nasm
-      binutils
-      libgcc
-
-      stremio-linux-shell
-      qbittorrent
-
-      bun
-
-      # Markdown language server
-      marksman
-
-      # Wine stuff
-      wineWow64Packages.stable
-      winetricks
-
-      kdePackages.kate
-      kdePackages.okular
-    ];
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
