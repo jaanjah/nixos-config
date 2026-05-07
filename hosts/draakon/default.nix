@@ -22,7 +22,6 @@
     # Package role profiles
     ../../modules/packages/core.nix
     ../../modules/packages/desktop.nix
-    ../../modules/packages/dev.nix
     ../../modules/packages/media.nix
     ../../modules/packages/vpn.nix
 
@@ -33,7 +32,10 @@
     ./hardware-configuration.nix
   ];
 
-  jaan.profiles.gaming.enable = true;
+  jaan.profiles = {
+    dev.enable = true;
+    gaming.enable = true;
+  };
 
   networking.hostName = hostname;
 
