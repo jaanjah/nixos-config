@@ -12,7 +12,6 @@
     ../../modules/boot.nix
     ../../modules/network.nix
     #../../modules/nvidia.nix
-    ../../modules/openvpn.nix
     ../../modules/podman.nix
     #../../modules/printer.nix
     ../../modules/system.nix
@@ -21,7 +20,6 @@
 
     # Package role profiles
     ../../modules/packages/core.nix
-    ../../modules/packages/vpn.nix
 
     # Option-driven role profiles (added incrementally; jaan.profiles.*)
     ../../modules/profiles
@@ -36,6 +34,7 @@
     dev.enable = true;
     gaming.enable = true;
     media.enable = true;
+    vpn.enable = true;
   };
 
   networking.hostName = hostname;
