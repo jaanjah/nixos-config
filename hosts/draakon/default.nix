@@ -21,7 +21,6 @@
 
     # Package role profiles
     ../../modules/packages/core.nix
-    ../../modules/packages/desktop.nix
     ../../modules/packages/media.nix
     ../../modules/packages/vpn.nix
 
@@ -34,6 +33,7 @@
 
   jaan.profiles = {
     communication.enable = true;
+    desktop.enable = true;
     dev.enable = true;
     gaming.enable = true;
   };

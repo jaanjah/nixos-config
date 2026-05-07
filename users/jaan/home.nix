@@ -5,7 +5,6 @@
     ../../home/profiles/cli.nix
 
     # Explicit profile imports remain until each migrates to the option-driven aggregator below.
-    ../../home/profiles/desktop.nix
     ../../home/profiles/media.nix
 
     # Option-driven role profiles (added incrementally; reads osConfig.jaan.profiles.*)
