@@ -27,6 +27,9 @@
     ../../modules/packages/media.nix
     ../../modules/packages/vpn.nix
 
+    # Option-driven role profiles (added incrementally; jaan.profiles.*)
+    ../../modules/profiles
+
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
