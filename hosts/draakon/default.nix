@@ -33,6 +33,7 @@
   ];
 
   jaan.profiles = {
+    communication.enable = true;
     dev.enable = true;
     gaming.enable = true;
   };
