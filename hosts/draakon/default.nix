@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ hostname, ... }:
+{
+  config,
+  lib,
+  hostname,
+  ...
+}:
 {
   imports = [
     # Import modules
@@ -15,7 +20,6 @@
     #../../modules/printer.nix
     ../../modules/system.nix
     #../../modules/touchpad.nix
-    ../../modules/virtualisation.nix
 
     # Package role profiles
     ../../modules/packages/core.nix
@@ -32,6 +36,7 @@
     desktop.enable = true;
     dev.enable = true;
     gaming.enable = true;
+    libvirt.enable = true;
     media.enable = true;
     podman.enable = true;
     vpn.enable = true;
@@ -45,7 +50,8 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      # needed for virtualisation
+    ]
+    ++ lib.optionals config.jaan.profiles.libvirt.enable [
       "libvirtd"
       "kvm"
     ];
