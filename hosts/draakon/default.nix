@@ -23,7 +23,6 @@
     ../../modules/packages/core.nix
     ../../modules/packages/desktop.nix
     ../../modules/packages/dev.nix
-    ../../modules/packages/gaming.nix
     ../../modules/packages/media.nix
     ../../modules/packages/vpn.nix
 
@@ -33,6 +32,8 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+
+  jaan.profiles.gaming.enable = true;
 
   networking.hostName = hostname;
 

@@ -1,9 +1,15 @@
-{ pkgs, ... }:
+{
+  osConfig,
+  lib,
+  pkgs,
+  ...
+}:
 let
+  cfg = osConfig.jaan.profiles.gaming;
   xclicker = pkgs.callPackage ../../packages/xclicker.nix { };
 in
 {
-  home.packages = [
-    xclicker
-  ];
+  config = lib.mkIf cfg.enable {
+    home.packages = [ xclicker ];
+  };
 }
