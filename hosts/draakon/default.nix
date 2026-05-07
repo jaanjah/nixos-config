@@ -21,7 +21,6 @@
 
     # Package role profiles
     ../../modules/packages/core.nix
-    ../../modules/packages/media.nix
     ../../modules/packages/vpn.nix
 
     # Option-driven role profiles (added incrementally; jaan.profiles.*)
@@ -36,6 +35,7 @@
     desktop.enable = true;
     dev.enable = true;
     gaming.enable = true;
+    media.enable = true;
   };
 
   networking.hostName = hostname;
