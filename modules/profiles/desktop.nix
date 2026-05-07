@@ -9,14 +9,16 @@ let
   cfg = config.jaan.profiles.desktop;
 in
 {
-  options.jaan.profiles.desktop.enable =
-    lib.mkEnableOption "Plasma 6 desktop with SDDM and autologin";
+  options.jaan.profiles.desktop = {
+    enable = lib.mkEnableOption "Plasma 6 desktop with SDDM";
+    autologin = lib.mkEnableOption "SDDM autologin (single-user convenience)";
+  };
 
   config = lib.mkIf cfg.enable {
     services = {
       desktopManager.plasma6.enable = true;
       displayManager = {
-        autoLogin = {
+        autoLogin = lib.mkIf cfg.autologin {
           enable = true;
           user = username;
         };
