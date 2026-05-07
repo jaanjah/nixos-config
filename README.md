@@ -106,10 +106,6 @@ If Nix says a host path is not tracked by Git, stage or commit the new files:
 git add hosts/<hostname> flake.nix
 ```
 
-TODO:
-
-- Add separate legacy boot mode and UEFI boot mode config
-
 Personal notes:
 
 - Good structure from https://github.com/ryan4yin/nix-config/tree/i3-kickstarter

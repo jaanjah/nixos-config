@@ -10,8 +10,6 @@
 }:
 {
   imports = [
-    # Import modules
-    # TODO: Make modules toggleable by variables
     ../../modules/amd.nix
     ../../modules/audio.nix
     ../../modules/boot.nix
