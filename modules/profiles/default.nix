@@ -5,6 +5,7 @@
     ./dev.nix
     ./gaming.nix
     ./media.nix
+    ./podman.nix
     ./vpn.nix
   ];
 }

@@ -12,7 +12,6 @@
     ../../modules/boot.nix
     ../../modules/network.nix
     #../../modules/nvidia.nix
-    ../../modules/podman.nix
     #../../modules/printer.nix
     ../../modules/system.nix
     #../../modules/touchpad.nix
@@ -34,6 +33,7 @@
     dev.enable = true;
     gaming.enable = true;
     media.enable = true;
+    podman.enable = true;
     vpn.enable = true;
   };
 
