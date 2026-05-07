@@ -2,34 +2,43 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ hostname, ... }:
+{
+  config,
+  lib,
+  hostname,
+  ...
+}:
 {
   imports = [
-    # Import modules
-    # TODO: Make modules toggleable by variables
     ../../modules/amd.nix
     ../../modules/audio.nix
     ../../modules/boot.nix
     ../../modules/network.nix
     #../../modules/nvidia.nix
-    ../../modules/openvpn.nix
-    ../../modules/podman.nix
     #../../modules/printer.nix
     ../../modules/system.nix
     #../../modules/touchpad.nix
-    ../../modules/virtualisation.nix
 
     # Package role profiles
     ../../modules/packages/core.nix
-    ../../modules/packages/desktop.nix
-    ../../modules/packages/dev.nix
-    ../../modules/packages/gaming.nix
-    ../../modules/packages/media.nix
-    ../../modules/packages/vpn.nix
+
+    # Option-driven role profiles (added incrementally; jaan.profiles.*)
+    ../../modules/profiles
 
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+
+  jaan.profiles = {
+    communication.enable = true;
+    desktop.enable = true;
+    dev.enable = true;
+    gaming.enable = true;
+    libvirt.enable = true;
+    media.enable = true;
+    podman.enable = true;
+    vpn.enable = true;
+  };
 
   networking.hostName = hostname;
 
@@ -39,7 +48,8 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      # needed for virtualisation
+    ]
+    ++ lib.optionals config.jaan.profiles.libvirt.enable [
       "libvirtd"
       "kvm"
     ];
