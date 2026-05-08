@@ -31,7 +31,10 @@
 
   jaan.profiles = {
     communication.enable = true;
-    desktop.enable = true;
+    desktop = {
+      enable = true;
+      autologin = true;
+    };
     dev.enable = true;
     gaming.enable = true;
     libvirt.enable = true;

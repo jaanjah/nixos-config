@@ -60,13 +60,7 @@
       ];
     };
   };
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [
-      # Needed for libcrypto.so.1.1 to work
-      "openssl-1.1.1w"
-    ];
-  };
+  nixpkgs.config.allowUnfree = true;
   services = {
     xserver = {
       enable = false;

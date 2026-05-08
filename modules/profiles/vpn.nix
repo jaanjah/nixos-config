@@ -21,5 +21,8 @@ in
     # https://wiki.nixos.org/wiki/OpenVPN
     # Cleanup of this empty placeholder is tracked in issue #13.
     services.openvpn.servers = { };
+
+    # ProtonVPN reply packets can fail reverse-path filtering
+    networking.firewall.checkReversePath = false;
   };
 }
