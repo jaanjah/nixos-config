@@ -20,8 +20,6 @@
     firewall = {
       enable = true;
       trustedInterfaces = [ "tailscale0" ];
-      # jellyfin
-      allowedTCPPorts = [ 8096 ];
       allowedUDPPorts = [ config.services.tailscale.port ];
     };
   };
