@@ -8,6 +8,8 @@
   services.tailscale.enable = true;
   services.resolved = {
     enable = true;
+    # Disabled: Tailscale + systemd-resolved breaks DNS resolution on wake-from-suspend
+    # when DNSSEC validation is on. Re-enable once verified the upstream interaction is fixed.
     settings.Resolve.DNSSEC = "false";
   };
   networking = {
