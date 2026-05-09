@@ -22,8 +22,6 @@
     };
     pre-commit-hooks.url = "github:cachix/git-hooks.nix";
     quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
-
-    hytale-launcher.url = "github:JPyke3/hytale-launcher-nix";
   };
 
   outputs =
