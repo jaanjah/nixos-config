@@ -70,4 +70,7 @@
       };
     };
   };
+
+  # Restrict the sudo binary to wheel members only (defense-in-depth)
+  security.sudo.execWheelOnly = true;
 }
