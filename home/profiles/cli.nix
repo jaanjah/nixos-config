@@ -7,6 +7,7 @@
     ../programs/git.nix
     ../programs/htop.nix
     ../programs/nix-index.nix
+    ../programs/ripgrep.nix
     ../programs/vim.nix
   ];
 }
