@@ -2,6 +2,7 @@
   imports = [
     ../programs/bash.nix
     ../programs/btop.nix
+    ../programs/direnv.nix
     ../programs/fastfetch.nix
     ../programs/fish.nix
     ../programs/git.nix
