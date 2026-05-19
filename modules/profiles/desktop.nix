@@ -22,7 +22,15 @@ in
           enable = true;
           user = username;
         };
-        sddm.enable = true;
+        sddm = {
+          enable = true;
+          # Keep the DRM-master handoff in Wayland end-to-end. With X11 SDDM
+          # + Wayland Plasma, kwin sometimes failed to re-acquire
+          # /dev/dri/card0 on resume from S3, freezing the lockscreen with
+          # no keyboard or pointer input. Don't disable without verifying
+          # the upstream regression is fixed.
+          wayland.enable = true;
+        };
       };
     };
 
