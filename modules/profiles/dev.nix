@@ -20,6 +20,15 @@ in
       libgcc
       marksman
       nasm
+
+      # Kubernetes / cloud tooling
+      argocd
+      hcloud
+      kubectl
+      kubectx
+      kubernetes-helm
+      stern
+      talosctl
     ];
   };
 }
