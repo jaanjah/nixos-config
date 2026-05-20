@@ -5,6 +5,7 @@
     ../programs/direnv.nix
     ../programs/fastfetch.nix
     ../programs/fish.nix
+    ../programs/fzf.nix
     ../programs/git.nix
     ../programs/htop.nix
     ../programs/nix-index.nix
