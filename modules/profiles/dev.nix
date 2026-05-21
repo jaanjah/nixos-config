@@ -23,6 +23,7 @@ in
 
       # Kubernetes / cloud tooling
       argocd
+      fzf
       hcloud
       kubectl
       kubectx
