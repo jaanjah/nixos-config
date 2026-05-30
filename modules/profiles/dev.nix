@@ -17,9 +17,11 @@ in
       claude-code
       gh
       gnumake
+      hydra-check
       libgcc
       marksman
       nasm
+      nh
 
       # Kubernetes / cloud tooling
       argocd
