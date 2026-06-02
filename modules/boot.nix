@@ -1,6 +1,5 @@
 {
   boot = {
-    kernelParams = [ "mem_sleep_default=s2idle" ];
     loader = {
       grub = {
         enable = true;
