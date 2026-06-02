@@ -1,11 +1,13 @@
 {
   boot = {
+    kernelParams = [ "mem_sleep_default=s2idle" ];
     loader = {
       grub = {
         enable = true;
         efiSupport = true;
         device = "nodev";
         useOSProber = true;
+        memtest86.enable = true;
       };
       efi = {
         canTouchEfiVariables = true;
