@@ -12,8 +12,9 @@ in
     lib.mkEnableOption "gaming role (Steam, gaming launchers, nix-ld libraries)";
 
   config = lib.mkIf cfg.enable {
-    # bolt-launcher / RS3 dlopen libcrypto.so.1.1 — see issue #28 for cleanup test
-    nixpkgs.config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
+    # bolt-launcher / RS3 dlopen libcrypto.so.1.1 — see issue #28 for cleanup test.
+    # The "openssl-1.1.1w" entry in nixpkgs.config.permittedInsecurePackages lives
+    # in modules/system.nix, gated on this profile being enabled.
 
     programs.steam.enable = true;
 

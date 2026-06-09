@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -60,7 +61,23 @@
       ];
     };
   };
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    # Centralised insecure-package allowlist. `nixpkgs.config.permittedInsecurePackages`
+    # is last-write-wins across modules, so contributions must be merged here rather
+    # than declared inside individual profiles. Each entry is gated on the profile
+    # that needs it — disabling the profile drops the exception automatically.
+    # See profile files for *why* each package is allowed.
+    permittedInsecurePackages =
+      lib.optionals config.jaan.profiles.gaming.enable [
+        # bolt-launcher dlopens libcrypto.so.1.1
+        "openssl-1.1.1w"
+      ]
+      ++ lib.optionals config.jaan.profiles.desktop.enable [
+        # bitwarden-desktop — https://github.com/NixOS/nixpkgs/issues/526914
+        "electron-39.8.10"
+      ];
+  };
   services = {
     xserver = {
       enable = false;
