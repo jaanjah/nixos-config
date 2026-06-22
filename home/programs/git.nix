@@ -19,6 +19,13 @@
       };
       gpg = {
         format = "ssh";
+        # Verify SSH-signed commits locally. Without an allowedSigners file git
+        # can sign but not verify (`git log --show-signature` errors and `%G?`
+        # returns N — looks unsigned but isn't). GitHub verifies via the key
+        # registered as a Signing Key regardless.
+        ssh = {
+          allowedSignersFile = "~/.config/git/allowed_signers";
+        };
       };
       push = {
         autoSetupRemote = true;
@@ -33,4 +40,9 @@
       };
     };
   };
+
+  # Identity → public-key map that gpg.ssh.allowedSignersFile points at.
+  xdg.configFile."git/allowed_signers".text = ''
+    jaanjahilo@outlook.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEebQ1uTuMl7PBX16i+zjVjGA+7dpUdVYkseY+YcPFk2 jaan-nixos-new
+  '';
 }
