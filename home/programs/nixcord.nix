@@ -17,7 +17,6 @@
         experiments.enable = true;
         fixSpotifyEmbeds.enable = true;
         fixYoutubeEmbeds.enable = true;
-        friendsSince.enable = true;
         imageZoom.enable = true;
         messageLogger.enable = true;
         noOnboardingDelay.enable = true;
