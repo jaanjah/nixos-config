@@ -77,6 +77,17 @@
         # bitwarden-desktop — https://github.com/NixOS/nixpkgs/issues/526914
         "electron-39.8.10"
       ];
+    # Centralised nixpkgs "problems" handlers. Separate mechanism from the
+    # insecure-package allowlist above: this downgrades a package's own
+    # `meta.problems.*` marker rather than permitting a vulnerable dependency.
+    # Gated on the owning profile for the same reason.
+    problems.handlers = lib.optionalAttrs config.jaan.profiles.gaming.enable {
+      # bolt-launcher is marked broken only when built with enableRS3, because
+      # RS3 needs OpenSSL 1.1. "warn" keeps it building while leaving the
+      # upcoming removal visible on every rebuild.
+      # https://github.com/jaanjah/nixos-config/issues/28
+      bolt-launcher.broken = "warn";
+    };
   };
   services = {
     xserver = {
