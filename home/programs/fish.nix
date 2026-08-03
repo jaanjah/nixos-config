@@ -4,7 +4,7 @@
 
     shellAliases = {
       ssh = "kitten ssh";
-      claude = "claude --model claude-opus-4-8 --effort max";
+      claude = "claude --model claude-opus-5 --effort max";
     };
 
     interactiveShellInit = ''
