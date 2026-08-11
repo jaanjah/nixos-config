@@ -38,6 +38,16 @@
   systemd.network.wait-online.enable = false;
   boot.initrd.systemd.network.wait-online.enable = false;
 
+  # network-online.target is passive - it only activates if some unit wants it,
+  # and nothing here did, so it never came up. NetworkManager-wait-online being
+  # "enabled" is not enough: that only means WantedBy=network-online.target,
+  # making it the target's dependent rather than its trigger. Podman's user unit
+  # podman-user-wait-network-online.service polls the target until it goes
+  # active, so it burned its full 90s timeout on every boot and delayed all
+  # rootless containers by that long. Pulling the target into the boot
+  # transaction activates NetworkManager-wait-online and resolves the wait.
+  systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
