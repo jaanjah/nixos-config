@@ -6,6 +6,8 @@
       age
       bc
       dig
+      dmidecode
+      efibootmgr
       git-lfs
       ncdu
       nixfmt
