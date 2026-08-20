@@ -18,7 +18,7 @@ in
       wireguard-tools
     ];
 
-    # ProtonVPN reply packets can fail strict reverse-path checks; "loose" preserves source-IP validation
+    # ProtonVPN replies fail strict rp_filter; loose still validates source IP.
     networking.firewall.checkReversePath = "loose";
   };
 }

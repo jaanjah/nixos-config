@@ -12,7 +12,7 @@
           "default"
         ];
         settings = id: {
-          # Use OAUTH2 for authentication
+          # 10 = OAUTH2
           "mail.server.server_${id}.authMethod" = 10;
           "mail.smtpserver.smtp_${id}.authMethod" = 10;
         };

@@ -12,7 +12,6 @@
         shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
         exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
       fi
-      # Disable bracketed paste mode
       if [[ $- == *i* ]]; then
           bind 'set enable-bracketed-paste off'
       fi

@@ -23,7 +23,6 @@ in
       nasm
       nh
 
-      # Kubernetes / cloud tooling
       argocd
       fzf
       hcloud

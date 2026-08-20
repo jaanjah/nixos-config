@@ -21,15 +21,12 @@ in
       (lib.meta.lowPrio python314)
       uv
 
-      # Nix language server dependencies
       nil
       nixd
 
-      # Go packages
       go
       gopls
 
-      # Package.json language server
       package-version-server
     ];
 

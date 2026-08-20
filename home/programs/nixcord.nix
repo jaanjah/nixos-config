@@ -12,7 +12,6 @@
     config = {
       # https://github.com/FlameFlag/nixcord/blob/aa8081c2a02984ce81c2d45eaf4ec40d4e450217/modules/plugins/shared.nix
       plugins = {
-        # Plugins
         copyFileContents.enable = true;
         experiments.enable = true;
         fixSpotifyEmbeds.enable = true;

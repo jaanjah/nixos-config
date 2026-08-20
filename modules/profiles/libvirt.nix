@@ -16,7 +16,7 @@ in
       sshProxy = false;
       qemu = {
         runAsRoot = true;
-        swtpm.enable = true; # TPM emulation (needed for Windows 11)
+        swtpm.enable = true; # Windows 11 requires a TPM
       };
       # Allow internet connection inside VM
       allowedBridges = [ "virbr0" ];

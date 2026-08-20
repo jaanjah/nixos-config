@@ -8,14 +8,12 @@
     };
 
     interactiveShellInit = ''
-      # Git prompt: show dirty state and color the branch
-      # green when clean, red when dirty, yellow when staged.
       set -g __fish_git_prompt_showdirtystate yes
       set -g __fish_git_prompt_color_branch green --bold
       set -g __fish_git_prompt_color_branch_dirty red --bold
       set -g __fish_git_prompt_color_branch_staged yellow --bold
 
-      # Drop the `*`/`+` markers — the color already conveys state.
+      # Colors already convey state; drop the `*`/`+` markers.
       set -g __fish_git_prompt_char_dirtystate ""
       set -g __fish_git_prompt_char_stagedstate ""
       set -g __fish_git_prompt_char_untrackedfiles ""
@@ -23,8 +21,7 @@
 
     functions = {
       __k8s_prompt = ''
-        # Show "⎈ <cluster>:<namespace>" when a kubeconfig + context exist.
-        # Silent when kubectl is missing or no context is set.
+        # "⎈ <cluster>:<namespace>", silent without kubectl or a context.
         command -q kubectl; or return
 
         set -l cfg $KUBECONFIG

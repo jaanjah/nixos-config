@@ -115,9 +115,8 @@
         };
       });
 
-      # Enter a development shell with `nix develop`.
-      # The hooks will be installed automatically.
-      # Or run pre-commit manually with `nix develop -c pre-commit run --all-files`
+      # `nix develop` installs the hooks; run them manually with
+      # `nix develop -c pre-commit run --all-files`.
       devShells = forAllSystems (system: {
         default =
           let
