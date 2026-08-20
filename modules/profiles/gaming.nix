@@ -12,10 +12,6 @@ in
     lib.mkEnableOption "gaming role (Steam, gaming launchers, nix-ld libraries)";
 
   config = lib.mkIf cfg.enable {
-    # bolt-launcher / RS3 dlopen libcrypto.so.1.1 — see issue #28 for cleanup test.
-    # The "openssl-1.1.1w" entry in nixpkgs.config.permittedInsecurePackages lives
-    # in modules/system.nix, gated on this profile being enabled.
-
     programs.steam.enable = true;
 
     programs.nix-ld = {
@@ -32,7 +28,6 @@ in
         libX11
         libXxf86vm
         mesa
-        openssl_1_1
         pango
         sdl2-compat
       ];
@@ -44,11 +39,11 @@ in
       runelite
       wineWow64Packages.stable
       winetricks
-      (bolt-launcher.override {
-        # Launch options: /usr/bin/env SDL_VIDEODRIVER=x11 %command%
-        # @link https://github.com/Adamcake/Bolt/issues/147#issue-3206473355
-        enableRS3 = true;
-      })
+      # Launch options: /usr/bin/env SDL_VIDEODRIVER=x11 %command%
+      # @link https://github.com/Adamcake/Bolt/issues/147#issue-3206473355
+      # No enableRS3: RS3 needs openssl_1_1, removed from nixpkgs 2026-07-24.
+      # https://github.com/jaanjah/nixos-config/issues/28
+      bolt-launcher
     ];
   };
 }

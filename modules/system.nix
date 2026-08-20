@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -63,31 +62,8 @@
   };
   nixpkgs.config = {
     allowUnfree = true;
-    # Centralised insecure-package allowlist. `nixpkgs.config.permittedInsecurePackages`
-    # is last-write-wins across modules, so contributions must be merged here rather
-    # than declared inside individual profiles. Each entry is gated on the profile
-    # that needs it — disabling the profile drops the exception automatically.
-    # See profile files for *why* each package is allowed.
-    permittedInsecurePackages =
-      lib.optionals config.jaan.profiles.gaming.enable [
-        # bolt-launcher dlopens libcrypto.so.1.1
-        "openssl-1.1.1w"
-      ]
-      ++ lib.optionals config.jaan.profiles.desktop.enable [
-        # bitwarden-desktop — https://github.com/NixOS/nixpkgs/issues/526914
-        "electron-39.8.10"
-      ];
-    # Centralised nixpkgs "problems" handlers. Separate mechanism from the
-    # insecure-package allowlist above: this downgrades a package's own
-    # `meta.problems.*` marker rather than permitting a vulnerable dependency.
-    # Gated on the owning profile for the same reason.
-    problems.handlers = lib.optionalAttrs config.jaan.profiles.gaming.enable {
-      # bolt-launcher is marked broken only when built with enableRS3, because
-      # RS3 needs OpenSSL 1.1. "warn" keeps it building while leaving the
-      # upcoming removal visible on every rebuild.
-      # https://github.com/jaanjah/nixos-config/issues/28
-      bolt-launcher.broken = "warn";
-    };
+    # Declare any exceptions here, not per-profile: last-write-wins clobbers.
+    permittedInsecurePackages = [ ];
   };
   services = {
     xserver = {
