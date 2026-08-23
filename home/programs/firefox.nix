@@ -1,4 +1,8 @@
 {
+  # Firefox 154 + kwin 6.7.4 kill the browser with a wl_fixes protocol error
+  # after resume from suspend. Force XWayland until upstream fixes it.
+  systemd.user.sessionVariables.MOZ_ENABLE_WAYLAND = "0";
+
   programs.firefox = {
     enable = true;
     configPath = ".config/mozilla/firefox";
