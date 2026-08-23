@@ -14,6 +14,7 @@ in
     environment.systemPackages = with pkgs; [
       calibre
       jellyfin-desktop
+      pear-desktop
       qbittorrent
       spotify
       stremio-linux-shell
