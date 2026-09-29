@@ -12,7 +12,14 @@ in
     lib.mkEnableOption "gaming role (Steam, gaming launchers, nix-ld libraries)";
 
   config = lib.mkIf cfg.enable {
-    programs.steam.enable = true;
+    programs.steam = {
+      enable = true;
+      # Proton-GE, exposed via STEAM_EXTRA_COMPAT_TOOLS_PATHS rather than
+      # extracted into ~/.steam/root/compatibilitytools.d. Tracks nixpkgs, so
+      # it can trail upstream by a point release until flake.lock is bumped.
+      # @link https://github.com/GloriousEggroll/proton-ge-custom
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
+    };
 
     programs.nix-ld = {
       enable = true;
