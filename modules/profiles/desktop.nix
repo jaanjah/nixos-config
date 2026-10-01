@@ -34,6 +34,15 @@ in
       };
     };
 
+    # Chromium and Electron apps default to XWayland here, which costs proper
+    # vsync and blurs fractional scaling. Native Wayland also fixes clipboard
+    # interop with Wayland-native windows.
+    #
+    # Firefox is deliberately unaffected: it keys off MOZ_ENABLE_WAYLAND, which
+    # home/programs/firefox.nix pins to 0 for the kwin wl_fixes resume crash.
+    # Revert this if Electron apps start hitting that same class of bug.
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
     environment.systemPackages = with pkgs; [
       bitwarden-desktop
       google-chrome
