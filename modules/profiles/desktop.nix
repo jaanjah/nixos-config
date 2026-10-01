@@ -38,9 +38,12 @@ in
     # vsync and blurs fractional scaling. Native Wayland also fixes clipboard
     # interop with Wayland-native windows.
     #
-    # Firefox is deliberately unaffected: it keys off MOZ_ENABLE_WAYLAND, which
-    # home/programs/firefox.nix pins to 0 for the kwin wl_fixes resume crash.
-    # Revert this if Electron apps start hitting that same class of bug.
+    # Firefox keys off MOZ_ENABLE_WAYLAND, which home/programs/firefox.nix pins
+    # to 0 for the kwin wl_fixes resume crash -- but it is NOT unaffected by
+    # this. Chromium exports GDK_BACKEND=wayland to child processes, so links
+    # opened from an Electron app reached Firefox with Wayland forced and it
+    # died with "cannot open display". home/programs/firefox.nix clears
+    # GDK_BACKEND in its desktop entry to break that inheritance.
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
     environment.systemPackages = with pkgs; [
