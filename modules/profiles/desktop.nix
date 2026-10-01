@@ -42,6 +42,7 @@ in
       kitty
       qdigidoc
       rocketchat-desktop
+      wl-clipboard
     ];
   };
 }
