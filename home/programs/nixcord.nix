@@ -1,4 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  vencordSettings = "${config.programs.nixcord.vesktop.configDir}/settings/settings.json";
+in
 {
   # https://github.com/FlameFlag/nixcord/blob/aa8081c2a02984ce81c2d45eaf4ec40d4e450217/README.md
   programs.nixcord = {
@@ -50,6 +58,27 @@
     Exec=${lib.getExe' config.programs.nixcord.finalPackage.vesktop "vesktop"}
     StartupNotify=false
     Terminal=false
+  '';
+
+  # nixcord installs the Vencord settings as a read-only store symlink, so
+  # Vencord's own writes fail. It force-enables its required plugins on every
+  # start, and each attempt logs "EROFS: read-only file system" -- the journal
+  # had ~339 of them. Anything toggled in Discord's UI also silently reverts.
+  # nixcord already installs writable copies for its legcord, goofcord and
+  # discord-mod specs (modules/lib/files.nix sets writable = true there but not
+  # in mkSettingsSpecs), so mirror that behaviour here.
+  #
+  # force = true lets the next activation put its symlink back before this
+  # script runs, so the plugin set declared above is still re-seeded on every
+  # rebuild and nix stays the source of truth.
+  home.file.${vencordSettings}.force = true;
+  home.activation.vencordWritableSettings = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    dest=${lib.escapeShellArg vencordSettings}
+    if [ -L "$dest" ]; then
+      src="$(${lib.getExe' pkgs.coreutils "readlink"} -f "$dest")"
+      $DRY_RUN_CMD rm -f "$dest"
+      $DRY_RUN_CMD ${lib.getExe' pkgs.coreutils "install"} -Dm644 "$src" "$dest"
+    fi
   '';
 
 }
