@@ -29,6 +29,7 @@ in
       kubectl
       kubectx
       kubernetes-helm
+      ovhcloud-cli
       stern
       talosctl
     ];
