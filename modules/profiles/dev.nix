@@ -24,6 +24,7 @@ in
       nh
 
       argocd
+      cntb
       fzf
       hcloud
       kubectl
