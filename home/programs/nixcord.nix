@@ -1,3 +1,4 @@
+{ config, lib, ... }:
 {
   # https://github.com/FlameFlag/nixcord/blob/aa8081c2a02984ce81c2d45eaf4ec40d4e450217/README.md
   programs.nixcord = {
@@ -34,4 +35,21 @@
       };
     };
   };
+
+  # Vesktop's own "start with system" toggle writes ~/.config/autostart with the
+  # electron binary and app.asar store paths baked in, so the entry dangles after
+  # the next update or GC. systemd then logs "executable specified in Exec= does
+  # not exist" on every login and Vesktop never starts. Manage it here instead,
+  # pointing at nixcord's final (Vencord-patched) package rather than the
+  # unpatched programs.nixcord.vesktop.package.
+  xdg.configFile."autostart/vesktop.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=Vesktop
+    Comment=Vesktop autostart
+    Exec=${lib.getExe' config.programs.nixcord.finalPackage.vesktop "vesktop"}
+    StartupNotify=false
+    Terminal=false
+  '';
+
 }
