@@ -1,7 +1,60 @@
+{ config, pkgs, ... }:
+let
+  # Electron apps run native Wayland (NIXOS_OZONE_WL=1, see
+  # modules/profiles/desktop.nix) and Chromium exports GDK_BACKEND=wayland into
+  # every child process it spawns. Clicking a link in an Electron app runs
+  # xdg-open -> kde-open -> KIO -> systemd app-firefox@.service, and that
+  # variable is inherited the whole way down. Combined with the X11 pin below,
+  # Firefox then dies with "Error: cannot open display: :0" and the click
+  # silently does nothing -- kde-open still exits 0 and Electron's openExternal
+  # promise still resolves, so nothing surfaces anywhere.
+  #
+  # Clear it here so Firefox chooses its backend from MOZ_ENABLE_WAYLAND alone.
+  # Drop this override if MOZ_ENABLE_WAYLAND=0 below ever goes away.
+  launch =
+    args:
+    "${pkgs.coreutils}/bin/env -u GDK_BACKEND ${config.programs.firefox.finalPackage}/bin/firefox ${args}";
+in
 {
   # Firefox 154 + kwin 6.7.4 kill the browser with a wl_fixes protocol error
   # after resume from suspend. Force XWayland until upstream fixes it.
   systemd.user.sessionVariables.MOZ_ENABLE_WAYLAND = "0";
+
+  xdg.desktopEntries.firefox = {
+    name = "Firefox";
+    genericName = "Web Browser";
+    exec = launch "--name firefox %U";
+    icon = "firefox";
+    terminal = false;
+    startupNotify = true;
+    categories = [
+      "Network"
+      "WebBrowser"
+    ];
+    mimeType = [
+      "text/html"
+      "text/xml"
+      "application/xhtml+xml"
+      "application/vnd.mozilla.xul+xml"
+      "x-scheme-handler/http"
+      "x-scheme-handler/https"
+    ];
+    settings.StartupWMClass = "firefox";
+    actions = {
+      new-private-window = {
+        name = "New Private Window";
+        exec = launch "--private-window %U";
+      };
+      new-window = {
+        name = "New Window";
+        exec = launch "--new-window %U";
+      };
+      profile-manager-window = {
+        name = "Profile Manager";
+        exec = launch "--ProfileManager";
+      };
+    };
+  };
 
   programs.firefox = {
     enable = true;
