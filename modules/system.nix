@@ -45,13 +45,21 @@
     };
     settings = {
       cores = 0;
+      # Nix decompresses NARs through this buffer; the 1 MiB default drains in
+      # milliseconds on a fast link and stalls the fetcher waiting on the writer.
+      download-buffer-size = 512 * 1024 * 1024;
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-      max-jobs = lib.mkDefault "auto";
+      http-connections = 50;
+      # "auto" resolves to 24 here, and with cores = 0 each job also claims all
+      # 24 threads -- a from-source rebuild of the world thrashes and can OOM.
+      max-jobs = lib.mkDefault 8;
+      max-substitution-jobs = 32;
+      # cache.nixos.org is already a module default and these lists concatenate,
+      # so listing it again only duplicates every narinfo lookup.
       substituters = [
-        "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
       ];
       trusted-public-keys = [
