@@ -29,6 +29,26 @@ in
           # /dev/dri/card0 on resume from S3, freezing the lockscreen with
           # no keyboard or pointer input. Don't disable without verifying
           # the upstream regression is fixed.
+          #
+          # Related failure mode on the same resume path: if the greeter
+          # cannot get a GL context it logs "EGL not available" and the
+          # password field stops handing its value to PAM, so a correct
+          # password is rejected as empty -- "pam_kwallet5: Couldn't get
+          # password (it is empty)" with NO pam_unix authentication failure
+          # line. The field still shows the typed characters, so it looks
+          # like the account password broke. It did not: absence of
+          # "pam_unix(kde:auth): authentication failure" means PAM was never
+          # asked to verify anything.
+          #
+          # Recover with Ctrl+Alt+F3 then `loginctl unlock-sessions`, which
+          # bypasses the broken greeter and keeps the session; a hard reboot
+          # is not needed. Trigger is rebuilding the desktop stack under a
+          # live session, since /run/opengl-driver is a live symlink -- so
+          # prefer `nixos-rebuild boot` + reboot for updates that bump
+          # kernel, mesa or plasma. Verify the greeter without locking via
+          # `kscreenlocker_greet --testing`; success logs pam_sm_setcred.
+          # "qmlRegisterType requires absolute URLs" is unrelated noise and
+          # appears ~40x on successful unlocks too.
           wayland.enable = true;
         };
       };
