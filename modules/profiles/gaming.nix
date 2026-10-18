@@ -12,24 +12,35 @@ in
     lib.mkEnableOption "gaming role (Steam, gaming launchers, nix-ld libraries)";
 
   config = lib.mkIf cfg.enable {
-    # gamescope 3.16.31 instead of the 3.16.29 this nixpkgs pins. Upstream
+    # Our own gamescope: upstream 3.16.31 plus one commit, instead of the
+    # 3.16.29 this nixpkgs pins.
+    #
     # 3.16.31 carries "vblankmanager: catch up to the next vblank in one step",
-    # which replaces an iterative walk -- the fix for CS2 frame pacing
-    # degrading the longer a session runs (judder at a steady 200fps, onset
-    # after ~20min, persisting until the game restarts).
-    # The nixpkgs expression is byte-identical between the two versions apart
-    # from version+hash, so this is the same build master does.
-    # @link https://github.com/ValveSoftware/gamescope/compare/3.16.29...3.16.31
+    # which replaces an iterative walk -- the suspected cause of frame pacing
+    # degrading the longer a session runs (CS2 judder at steady 200fps, onset
+    # after ~20min, persists until the game restarts).
+    #
+    # feat/host-to-guest-clipboard then teaches the Wayland backend to listen
+    # for the host's selection, so text copied on the desktop can be pasted
+    # into CS2 chat. gamescope has only ever bridged the clipboard outward;
+    # upstream has three open attempts at the other direction and has merged
+    # none of them. Branched off the 3.16.31 tag, so the clipboard commit is
+    # the only delta from what was already running here.
+    #
+    # Pinned by rev, not branch: a branch would silently change what gets
+    # built whenever the fork moves.
+    # @link https://github.com/ValveSoftware/gamescope/issues/1935
+    # @link https://github.com/jaanjah/gamescope/tree/feat/host-to-guest-clipboard
     nixpkgs.overlays = [
       (_: prev: {
         gamescope = prev.gamescope.overrideAttrs (_: {
-          version = "3.16.31";
+          version = "3.16.31-clipboard";
           src = prev.fetchFromGitHub {
-            owner = "ValveSoftware";
+            owner = "jaanjah";
             repo = "gamescope";
-            tag = "3.16.31";
+            rev = "a7920982b1e94573d141e07ccc6e9ba04e8db055";
             fetchSubmodules = true;
-            hash = "sha256-mCCf/CfKBqxNvmRbaAJsOMrnnRutPr9nEePHmAq/PUM=";
+            hash = "sha256-TqtSTYG6aSsxjLxklO5nLdVzx94EyiSgjNXAnQZIqqc=";
           };
         });
       })
