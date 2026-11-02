@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -106,6 +107,8 @@ in
       # No enableRS3: RS3 needs openssl_1_1, removed from nixpkgs 2026-07-24.
       # https://github.com/jaanjah/nixos-config/issues/28
       bolt-launcher
+      # From upstream's flake, not nixpkgs -- see the input in flake.nix.
+      inputs.deadlock-mod-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
   };
 }

@@ -26,6 +26,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
+    # nixpkgs' deadlock-mod-manager trails upstream by a major version, so
+    # take the package from upstream's own flake. Pinned to a release tag;
+    # bump it here to update.
+    # @link https://github.com/deadlock-mod-manager/deadlock-mod-manager
+    deadlock-mod-manager = {
+      url = "github:deadlock-mod-manager/deadlock-mod-manager/v2.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
