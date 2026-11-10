@@ -107,6 +107,14 @@ in
       # No enableRS3: RS3 needs openssl_1_1, removed from nixpkgs 2026-07-24.
       # https://github.com/jaanjah/nixos-config/issues/28
       bolt-launcher
+      # Battle.net and WoW: Forever, prefix in ~/Faugus/battlenet. Proton runs
+      # through umu-launcher inside Steam's runtime container, which brings
+      # the 32-bit libraries Battle.net needs. NB: Lightforge was tried
+      # 2026-11-08 instead -- its steam-run setup has no 32-bit FreeType, so
+      # Battle.net's sign-in window drew no text. The Battle.net installer
+      # picked the US region; switch to Europe from the gear at sign-in.
+      # @link https://github.com/Faugus/faugus-launcher
+      faugus-launcher
       # From upstream's flake, not nixpkgs -- see the input in flake.nix.
       inputs.deadlock-mod-manager.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
