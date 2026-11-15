@@ -528,20 +528,11 @@
       "kwinrc"."Tiling/eab75afc-ecc6-4989-b764-11ae94cc7da4/b6bec9ec-41a9-4fb3-9497-3dfdc9e3b710"."tiles" =
         "{\"layoutDirection\":\"horizontal\",\"tiles\":[{\"width\":0.25},{\"width\":0.5},{\"width\":0.25}]}";
       "kwinrc"."Xwayland"."Scale" = 1;
-      "kwinrulesrc"."General"."count" = 1;
-      "kwinrulesrc"."General"."rules" = "c9bca41f-1b21-4df3-a1d4-2f33f894f745";
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."Description" = "Force Flameshot size";
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."aboverule" = 2;
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."fullscreenrule" = 2;
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."ignoregeometry" = true;
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."ignoregeometryrule" = 2;
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."position" = "0,0";
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."positionrule" = 2;
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."title" = "flameshot";
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."titlematch" = 1;
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."types" = 1;
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."wmclass" = "flameshot";
-      "kwinrulesrc"."c9bca41f-1b21-4df3-a1d4-2f33f894f745"."wmclassmatch" = 1;
+      # No kwinrulesrc here, and drop it if a fresh rc2nix dump brings it back.
+      # Pinning [General] count/rules rewrote the active rule list on every
+      # boot and switch, which unlisted every rule added at runtime (CS2 and
+      # gamescope forced onto the AOC) and sent games back to the left monitor.
+      # The rule book is owned by ~/.local/bin/game-to-aoc and KWin's own UI.
       "plasma-localerc"."Formats"."LANG" = "en_US.UTF-8";
       "plasmanotifyrc"."Applications/firefox"."Seen" = true;
       "plasmanotifyrc"."Applications/thunderbird"."Seen" = true;
